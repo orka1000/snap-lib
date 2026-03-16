@@ -1,0 +1,7 @@
+{
+  "name": "SnapLib",
+  "description": "A super fast mobile app to scan and catalog your physical books into a virtual library.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
