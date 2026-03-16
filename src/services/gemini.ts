@@ -165,7 +165,7 @@ export async function fetchReviewsAndVideos(title: string, author: string): Prom
     contents: `Find real reader reviews, press critiques, and popular YouTube videos about the book "${title}" by ${author}. 
     Return a JSON object with two arrays:
     1. 'reviews': A mix of 3-5 real press/critique reviews and real reader reviews. Include the URL to the original review if possible.
-    2. 'videos': 5-8 real YouTube videos (reviews, summaries, interviews) about this book, including the actual YouTube URL.`,
+    2. 'videos': Up to 15 real YouTube videos (reviews, summaries, interviews, analysis) about this book, including the actual YouTube URL. Return as many high-quality, relevant videos as you can find.`,
     config: {
       responseMimeType: 'application/json',
       responseSchema: {

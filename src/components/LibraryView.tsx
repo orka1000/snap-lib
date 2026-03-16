@@ -26,7 +26,7 @@ export function LibraryView({ books, tasks, onOpenScanner, onRemoveBook, onSelec
       <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-zinc-200 px-4 py-4">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-            <BookOpen className="text-indigo-600" /> SnapLib
+            <BookOpen className="text-orange-600" /> SnapLib
           </h1>
           <div className="text-sm font-medium text-zinc-500 bg-zinc-100 px-3 py-1 rounded-full">
             {books.length} Books
@@ -44,7 +44,7 @@ export function LibraryView({ books, tasks, onOpenScanner, onRemoveBook, onSelec
             placeholder="Search library..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-zinc-100 border-transparent rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none"
+            className="w-full pl-10 pr-4 py-2 bg-zinc-100 border-transparent rounded-xl focus:bg-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all outline-none"
           />
         </div>
       </header>
@@ -92,8 +92,8 @@ export function LibraryView({ books, tasks, onOpenScanner, onRemoveBook, onSelec
         <section>
           {filteredBooks.length === 0 && tasks.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-center px-4">
-              <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
-                <BookOpen className="text-indigo-600" size={32} />
+              <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mb-6">
+                <BookOpen className="text-orange-600" size={32} />
               </div>
               <h3 className="text-xl font-semibold mb-2">Your library is empty</h3>
               <p className="text-zinc-500 mb-8 max-w-xs">
@@ -101,7 +101,7 @@ export function LibraryView({ books, tasks, onOpenScanner, onRemoveBook, onSelec
               </p>
               <button
                 onClick={onOpenScanner}
-                className="bg-indigo-600 text-white px-6 py-3 rounded-xl font-medium shadow-lg shadow-indigo-200 hover:bg-indigo-700 active:scale-95 transition-all flex items-center gap-2"
+                className="bg-orange-600 text-white px-6 py-3 rounded-xl font-medium shadow-lg shadow-orange-200 hover:bg-orange-700 active:scale-95 transition-all flex items-center gap-2"
               >
                 <Camera size={20} /> Scan First Book
               </button>
@@ -163,7 +163,7 @@ export function LibraryView({ books, tasks, onOpenScanner, onRemoveBook, onSelec
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={onOpenScanner}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-indigo-600 text-white rounded-full shadow-xl shadow-indigo-600/30 flex items-center justify-center z-40"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-orange-600 text-white rounded-full shadow-xl shadow-orange-600/30 flex items-center justify-center z-40"
       >
         <Plus size={28} />
       </motion.button>

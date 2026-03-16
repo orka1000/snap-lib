@@ -22,6 +22,13 @@ export function BookProfileView({ book, onClose, onRemoveBook, onGenerateGuide, 
   const [showGuide, setShowGuide] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'reviews' | 'videos'>('overview');
   const [isFetchingMedia, setIsFetchingMedia] = useState(false);
+  const [visibleVideosCount, setVisibleVideosCount] = useState(5);
+
+  useEffect(() => {
+    if (activeTab !== 'videos') {
+      setVisibleVideosCount(5);
+    }
+  }, [activeTab]);
 
   useEffect(() => {
     if ((activeTab === 'reviews' || activeTab === 'videos') && !book.reviews && !book.videos && !isFetchingMedia) {
@@ -59,10 +66,10 @@ export function BookProfileView({ book, onClose, onRemoveBook, onGenerateGuide, 
       >
         {/* Header / Hero Image */}
         <div className="relative h-72 w-full bg-zinc-900 overflow-hidden">
-          {/* Blurred background (always use original scan for aesthetic) */}
+          {/* Blurred background */}
           <div
             className="absolute inset-0 bg-cover bg-center opacity-40 blur-xl scale-110"
-            style={{ backgroundImage: `url(${book.imageUrl})` }}
+            style={{ backgroundImage: `url(${book.coverImageUrl || book.imageUrl})` }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
           
@@ -115,7 +122,7 @@ export function BookProfileView({ book, onClose, onRemoveBook, onGenerateGuide, 
           {/* Title & Author */}
           <div className="mb-6">
             {book.genre && (
-              <span className="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-bold uppercase tracking-wider rounded-full mb-3">
+              <span className="inline-block px-3 py-1 bg-orange-100 text-orange-800 text-xs font-bold uppercase tracking-wider rounded-full mb-3">
                 {book.genre}
               </span>
             )}
@@ -154,19 +161,19 @@ export function BookProfileView({ book, onClose, onRemoveBook, onGenerateGuide, 
           <div className="flex border-b border-zinc-200 mb-8 sticky top-0 bg-white z-10 pt-2">
             <button
               onClick={() => setActiveTab('overview')}
-              className={`flex-1 py-4 text-sm font-semibold border-b-2 transition-colors flex items-center justify-center gap-2 ${activeTab === 'overview' ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'}`}
+              className={`flex-1 py-4 text-sm font-semibold border-b-2 transition-colors flex items-center justify-center gap-2 ${activeTab === 'overview' ? 'border-orange-600 text-orange-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'}`}
             >
               <BookOpen size={18} /> Overview
             </button>
             <button
               onClick={() => setActiveTab('reviews')}
-              className={`flex-1 py-4 text-sm font-semibold border-b-2 transition-colors flex items-center justify-center gap-2 ${activeTab === 'reviews' ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'}`}
+              className={`flex-1 py-4 text-sm font-semibold border-b-2 transition-colors flex items-center justify-center gap-2 ${activeTab === 'reviews' ? 'border-orange-600 text-orange-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'}`}
             >
               <MessageSquare size={18} /> Reviews
             </button>
             <button
               onClick={() => setActiveTab('videos')}
-              className={`flex-1 py-4 text-sm font-semibold border-b-2 transition-colors flex items-center justify-center gap-2 ${activeTab === 'videos' ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'}`}
+              className={`flex-1 py-4 text-sm font-semibold border-b-2 transition-colors flex items-center justify-center gap-2 ${activeTab === 'videos' ? 'border-orange-600 text-orange-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'}`}
             >
               <PlayCircle size={18} /> Videos
             </button>
@@ -189,7 +196,7 @@ export function BookProfileView({ book, onClose, onRemoveBook, onGenerateGuide, 
                     </>
                   ) : (
                     <>
-                      <BookOpen size={24} className={book.comprehensiveGuide ? "text-indigo-400" : "text-zinc-400"} />
+                      <BookOpen size={24} className={book.comprehensiveGuide ? "text-orange-400" : "text-zinc-400"} />
                       {book.comprehensiveGuide ? 'Read Comprehensive Guide' : 'Generate Comprehensive Guide'}
                     </>
                   )}
@@ -203,11 +210,11 @@ export function BookProfileView({ book, onClose, onRemoveBook, onGenerateGuide, 
 
               {/* 3-Sentence Summary (World Class) */}
               {book.threeSentenceSummary && (
-                <div className="mb-10 bg-indigo-50/50 rounded-2xl p-6 border border-indigo-100">
-                  <h2 className="text-sm font-bold text-indigo-900 uppercase tracking-widest mb-3 flex items-center gap-2">
-                    <Zap size={16} className="text-indigo-500" /> The Book in 3 Sentences
+                <div className="mb-10 bg-orange-50/50 rounded-2xl p-6 border border-orange-100">
+                  <h2 className="text-sm font-bold text-orange-900 uppercase tracking-widest mb-3 flex items-center gap-2">
+                    <Zap size={16} className="text-orange-500" /> The Book in 3 Sentences
                   </h2>
-                  <p className="text-indigo-950 font-medium text-lg leading-relaxed">
+                  <p className="text-orange-950 font-medium text-lg leading-relaxed">
                     {book.threeSentenceSummary}
                   </p>
                 </div>
@@ -265,7 +272,7 @@ export function BookProfileView({ book, onClose, onRemoveBook, onGenerateGuide, 
                   <blockquote className="text-xl font-serif text-zinc-800 italic leading-relaxed mb-4">
                     "{book.notableQuote}"
                   </blockquote>
-                  <div className="w-12 h-1 bg-indigo-500 mx-auto rounded-full" />
+                  <div className="w-12 h-1 bg-orange-500 mx-auto rounded-full" />
                 </div>
               )}
 
@@ -305,18 +312,18 @@ export function BookProfileView({ book, onClose, onRemoveBook, onGenerateGuide, 
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
               {isFetchingMedia ? (
                 <div className="flex flex-col items-center justify-center py-16 text-zinc-500">
-                  <Loader2 className="animate-spin mb-4 text-indigo-500" size={32} />
+                  <Loader2 className="animate-spin mb-4 text-orange-500" size={32} />
                   <p className="font-medium">Finding real reviews from readers and press...</p>
                 </div>
               ) : book.reviews && book.reviews.length > 0 ? (
                 book.reviews.map((review, idx) => (
                   <div key={idx} className="bg-zinc-50 rounded-2xl p-6 border border-zinc-200 shadow-sm relative overflow-hidden">
-                    <div className={`absolute top-0 left-0 w-1 h-full ${review.type === 'press' ? 'bg-indigo-500' : 'bg-emerald-500'}`} />
+                    <div className={`absolute top-0 left-0 w-1 h-full ${review.type === 'press' ? 'bg-orange-500' : 'bg-emerald-500'}`} />
                     <div className="flex items-center justify-between mb-4">
                       <div>
                         <h3 className="font-bold text-zinc-900">{review.author}</h3>
                         <p className="text-xs font-medium text-zinc-500 mt-0.5">
-                          {review.source} • <span className={review.type === 'press' ? 'text-indigo-600' : 'text-emerald-600'}>{review.type === 'press' ? 'Press/Critique' : 'Reader Review'}</span>
+                          {review.source} • <span className={review.type === 'press' ? 'text-orange-600' : 'text-emerald-600'}>{review.type === 'press' ? 'Press/Critique' : 'Reader Review'}</span>
                         </p>
                       </div>
                       {review.rating && (
@@ -332,7 +339,7 @@ export function BookProfileView({ book, onClose, onRemoveBook, onGenerateGuide, 
                         href={review.url} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 mt-4 text-xs font-bold uppercase tracking-wider text-indigo-600 hover:text-indigo-700 transition-colors"
+                        className="inline-flex items-center gap-1 mt-4 text-xs font-bold uppercase tracking-wider text-orange-600 hover:text-orange-700 transition-colors"
                       >
                         Read full review <ExternalLink size={12} />
                       </a>
@@ -353,40 +360,52 @@ export function BookProfileView({ book, onClose, onRemoveBook, onGenerateGuide, 
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
               {isFetchingMedia ? (
                 <div className="flex flex-col items-center justify-center py-16 text-zinc-500">
-                  <Loader2 className="animate-spin mb-4 text-indigo-500" size={32} />
+                  <Loader2 className="animate-spin mb-4 text-orange-500" size={32} />
                   <p className="font-medium">Finding YouTube videos and playlists...</p>
                 </div>
               ) : book.videos && book.videos.length > 0 ? (
-                book.videos.map((video, idx) => {
-                  const videoId = getYouTubeId(video.url);
-                  return (
-                    <div key={idx} className="bg-white rounded-2xl overflow-hidden border border-zinc-200 shadow-sm">
-                      {videoId ? (
-                        <div className="aspect-video w-full bg-zinc-900">
-                          <iframe
-                            width="100%"
-                            height="100%"
-                            src={`https://www.youtube.com/embed/${videoId}`}
-                            title={video.title}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          ></iframe>
+                <>
+                  {book.videos.slice(0, visibleVideosCount).map((video, idx) => {
+                    const videoId = getYouTubeId(video.url);
+                    return (
+                      <div key={idx} className="bg-white rounded-2xl overflow-hidden border border-zinc-200 shadow-sm">
+                        {videoId ? (
+                          <div className="aspect-video w-full bg-zinc-900">
+                            <iframe
+                              width="100%"
+                              height="100%"
+                              src={`https://www.youtube.com/embed/${videoId}`}
+                              title={video.title}
+                              frameBorder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                            ></iframe>
+                          </div>
+                        ) : (
+                          <div className="aspect-video w-full bg-zinc-100 flex items-center justify-center">
+                            <p className="text-zinc-500 text-sm">Video cannot be embedded</p>
+                          </div>
+                        )}
+                        <div className="p-5">
+                          <h3 className="font-bold text-zinc-900 line-clamp-2 mb-1 leading-snug">{video.title}</h3>
+                          <p className="text-sm font-medium text-zinc-500 flex items-center gap-2">
+                            <PlayCircle size={14} /> {video.channel}
+                          </p>
                         </div>
-                      ) : (
-                        <div className="aspect-video w-full bg-zinc-100 flex items-center justify-center">
-                          <p className="text-zinc-500 text-sm">Video cannot be embedded</p>
-                        </div>
-                      )}
-                      <div className="p-5">
-                        <h3 className="font-bold text-zinc-900 line-clamp-2 mb-1 leading-snug">{video.title}</h3>
-                        <p className="text-sm font-medium text-zinc-500 flex items-center gap-2">
-                          <PlayCircle size={14} /> {video.channel}
-                        </p>
                       </div>
+                    );
+                  })}
+                  {visibleVideosCount < book.videos.length && (
+                    <div className="flex justify-center pt-2 pb-6">
+                      <button
+                        onClick={() => setVisibleVideosCount(prev => prev + 5)}
+                        className="px-6 py-3 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 font-semibold rounded-xl transition-colors"
+                      >
+                        Load More Videos
+                      </button>
                     </div>
-                  );
-                })
+                  )}
+                </>
               ) : (
                 <div className="text-center py-16 text-zinc-500 bg-zinc-50 rounded-2xl border border-zinc-200 border-dashed">
                   <PlayCircle size={32} className="mx-auto mb-3 text-zinc-400" />

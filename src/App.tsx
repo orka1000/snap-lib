@@ -40,6 +40,7 @@ export default function App() {
     };
 
     setTasks((prev) => [...prev, newTask]);
+    setIsScannerOpen(false);
 
     // Process the image asynchronously
     processImage(newTask);

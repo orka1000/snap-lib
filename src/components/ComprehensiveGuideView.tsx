@@ -38,7 +38,7 @@ export function ComprehensiveGuideView({ book, onClose }: ComprehensiveGuideView
       {/* Content */}
       <div className="max-w-3xl mx-auto px-6 py-12 pb-32">
         <div className="mb-12 text-center">
-          <div className="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <div className="w-16 h-16 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <BookOpen size={32} />
           </div>
           <h1 className="text-4xl font-bold text-zinc-900 mb-4 font-serif">
@@ -49,7 +49,7 @@ export function ComprehensiveGuideView({ book, onClose }: ComprehensiveGuideView
           </p>
         </div>
 
-        <div className="prose prose-zinc prose-lg mx-auto prose-headings:font-serif prose-headings:text-zinc-900 prose-a:text-indigo-600 prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-blockquote:not-italic prose-blockquote:text-zinc-700">
+        <div className="prose prose-zinc prose-lg mx-auto prose-headings:font-serif prose-headings:text-zinc-900 prose-a:text-orange-600 prose-blockquote:border-orange-500 prose-blockquote:bg-orange-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-blockquote:not-italic prose-blockquote:text-zinc-700">
           <Markdown>{book.comprehensiveGuide}</Markdown>
         </div>
       </div>

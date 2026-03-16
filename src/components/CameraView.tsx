@@ -13,8 +13,6 @@ export function CameraView({ onCapture, onClose }: CameraViewProps) {
   const [flash, setFlash] = useState(false);
   const [isCapturing, setIsCapturing] = useState(false);
   const [stream, setStream] = useState<MediaStream | null>(null);
-  const [sessionScans, setSessionScans] = useState(0);
-  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     let activeStream: MediaStream | null = null;
@@ -58,10 +56,6 @@ export function CameraView({ onCapture, onClose }: CameraViewProps) {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         const imageSrc = canvas.toDataURL('image/jpeg', 0.8);
         onCapture(imageSrc);
-        
-        setSessionScans((prev) => prev + 1);
-        setShowSuccess(true);
-        setTimeout(() => setShowSuccess(false), 1000);
       }
       
       setTimeout(() => setIsCapturing(false), 150);
@@ -82,9 +76,6 @@ export function CameraView({ onCapture, onClose }: CameraViewProps) {
           className="p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors flex items-center gap-2"
         >
           <X size={24} />
-          {sessionScans > 0 && (
-            <span className="text-sm font-medium pr-1">Done</span>
-          )}
         </button>
         <button
           onClick={() => setFlash(!flash)}
@@ -117,21 +108,6 @@ export function CameraView({ onCapture, onClose }: CameraViewProps) {
           />
         )}
 
-        {/* Success Indicator */}
-        <AnimatePresence>
-          {showSuccess && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: -20 }}
-              className="absolute top-1/4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md text-white px-4 py-2 rounded-full flex items-center gap-2 z-30 pointer-events-none"
-            >
-              <CheckCircle2 className="text-emerald-400" size={20} />
-              <span className="font-medium">Added to queue</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         {/* Scanning Guide Overlay */}
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center p-8">
           <div className="w-full max-w-sm aspect-[3/4] border-2 border-white/30 rounded-2xl relative">
@@ -146,11 +122,6 @@ export function CameraView({ onCapture, onClose }: CameraViewProps) {
 
       {/* Footer Controls */}
       <div className="bg-black p-8 pb-12 flex flex-col items-center justify-center relative">
-        {sessionScans > 0 && (
-          <div className="absolute top-0 -translate-y-full pb-4 text-white/70 text-sm font-medium">
-            {sessionScans} book{sessionScans !== 1 ? 's' : ''} scanned this session
-          </div>
-        )}
         <button
           onClick={capture}
           className="w-20 h-20 rounded-full border-4 border-white p-1 flex items-center justify-center active:scale-95 transition-transform"
